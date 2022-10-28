@@ -1,0 +1,63 @@
+{
+  "name": "qmai-api",
+  "version": "0.0.0",
+  "private": true,
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "engines": {
+    "node": "16.17.0"
+  },
+  "nodemonConfig": {
+    "exec": "yarn run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "scripts": {
+    "transpile": "babel ./server -d dist-server",
+    "clean": "rimraf dist-server",
+    "build": "npm-run-all clean transpile",
+    "server": "node  ./dist-server/bin/www",
+    "dev": "npm-run-all build server",
+    "watch:dev": "nodemon -L",
+    "start-dev": "yarn run watch:dev",
+    "start": "npm-run-all build server "
+  },
+  "dependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "bcrypt": "^5.0.1",
+    "core-js": "^3.25.2",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.2",
+    "express": "~4.16.1",
+    "mongoose": "^6.6.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.7.8",
+    "npm-run-all": "^4.1.5",
+    "rand-token": "^1.0.1",
+    "regenerator-runtime": "^0.13.9",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "nodemon": "^2.0.20"
+  },
+  "main": "app.js",
+  "repository": "https://github.com/inmotionhub/qmai-api.git",
+  "author": "Eben",
+  "license": "MIT"
+}
