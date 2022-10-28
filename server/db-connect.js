@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   await new Promise((resolve, reject) => {
-    mongoose.connect("mongodb+srv://inmotion:validprofit@cluster0.wyb6yq6.mongodb.net/qmai_db", {
+    mongoose.connect(process.env.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
