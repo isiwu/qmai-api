@@ -126,7 +126,7 @@ app.use(cors(
     optionSuccessStatus: 200,
   }
 ));
-app.use("/api", indexRouter);
+app.use("/api", cors(), indexRouter);
 
 //Error handlers
 app.use((req, res) => {
