@@ -121,7 +121,7 @@ app.use(express.static(join(__dirname, "../public")));
 
 app.use(cors(
   {
-    origin: ["https://qmai.vercel.app/", "http://localhost:3000"],
+    origin: "*",
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
   }
