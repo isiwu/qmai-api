@@ -77,11 +77,11 @@ app.use(express.static(join(__dirname, "../public")));
                   <div style="background-color:#f1f1f1; width: 55%; height: 400px; border-radius: 20px;margin: auto; ">
                     <div style="padding: 0 3rem;" >
                         <h1 style="color:green  ; padding-top: 2rem;">Hi,</h1>
-                        <div style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We are delighted to inform you that your <b style=""font-weight: bolder>${membershipType?.charAt(0).toUpperCase()}${membershipType?.slice(1)} membership certificate</b> is ready.</div>
+                        <div style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We are delighted to inform you that your <b style="font-weight: bolder">${membershipType?.charAt(0).toUpperCase()}${membershipType?.slice(1)} certificate</b> is ready.</div>
                         <br><br>
                         <div>You can download it here by clicking the link below.</div>
                         <br><br>
-                        <div style="margin-top: 10px;"><a style="font-size: 20px; text-decoration: none; padding: 5px 15px; background-color: green; border-radius: 20px; color: white;" href="https://qmai.herokuapp.com/certs/InMotion-Weekly-Project-Progress-Report.docx" download>Download</a></div>
+                        <div style="margin-top: 10px;"><a style="font-size: 20px; text-decoration: none; padding: 10px 20px; background-color: green; border-radius: 20px; color: white;" href="https://qmai.herokuapp.com/certs/InMotion-Weekly-Project-Progress-Report.docx" download>Download</a></div>
                     </div>
                   </div>
                 </div> 

@@ -237,13 +237,13 @@ approveApplication = async (req, res, next) => {
       <link rel="stylesheet" href="flex.css">
   </head>
   <body>
-     <div style="background-color:green; width:100%; height:500px;padding-top:50px;">
-        <div style="background-color:#fff; width: 55%; height: 400px; border-radius: 20px;margin: auto; ">
+     <div style="width:100%; height:500px;padding-top:50px;">
+        <div style="background-color:#f1f1f1; width: 55%; height: 400px; border-radius: 20px;margin: auto; ">
           <div style="padding: 0 3rem;" >
               <h1 style="color:green  ; padding-top: 2rem;">Hi,</h1>
-              <p style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We want to inform you that your ${memberApplication?.type?.charAt(0).toUpperCase()}${memberApplication?.type?.slice(1)} membership application has been reviewed and approved. You can go ahead and make payment to get your membership cerficate.</p>
+              <p style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We want to inform you that your <b style="font-weight: bolder">${memberApplication?.type?.charAt(0).toUpperCase()}${memberApplication?.type?.slice(1)}</b> application has been reviewed and approved. You can go ahead and make payment to get your membership cerficate.</p>
               <br><br>
-              <div style="margin-top: 10px;"><a style="font-size: 30px; text-decoration: none; padding: 2rem 1rem; background-color: green; border-radius: 20px; color: white;" href="${req.protocol}://https://qmai.vercel.app/?completeApplication=true&id=${memberApplication?.id}" target="_blank">Make Payment</a></div>
+              <div style="margin-top: 10px;"><a style="font-size: 30px; text-decoration: none; padding: 10px 20px; background-color: green; border-radius: 6px; color: white;" href="${req.protocol}://https://qmai.vercel.app/?completeApplication=true&id=${memberApplication?.id}" target="_blank">Make Payment</a></div>
           </div>
         </div>
       </div> 
