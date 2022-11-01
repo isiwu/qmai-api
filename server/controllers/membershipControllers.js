@@ -92,10 +92,8 @@ const apply = async (req, res, next) => {
       type: membershipType,
       membershipId,
       studingQMAI,
-      // yearsOfWorkExp: parseFloat(yearsOfWorkExp),
-      // yearsOfSystemExp: parseFloat(yearsOfSystemExp),
-      yearsOfWorkExp,
-      yearsOfSystemExp,
+      yearsOfWorkExp: parseFloat(yearsOfWorkExp),
+      yearsOfSystemExp: parseFloat(yearsOfSystemExp),
       cv: req.cv,
       otherRelevantDocument: {
         url: req.otherRDoc,
