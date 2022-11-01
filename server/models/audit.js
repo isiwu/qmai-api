@@ -11,6 +11,11 @@ const auditeSchema = new Schema({
     type: String,
     required: true
   },
+  status: {
+    type: String,
+    default: "pending",
+    enum: ["approved", "pending"]
+  },
   userId: {
     type: String,
     required: true,

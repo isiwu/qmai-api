@@ -215,6 +215,9 @@ const completeApplication = async (req, res, next) => {
 addAudit = async (req, res, next) => {
   const { userId } = req.params;
   const { name, info } = req.body;
+  console.log(name);
+  console.log(info);
+  console.log(req.doc);
 
   if (!name || !info || !req.doc) {
     res.locals.status = 400;
