@@ -92,6 +92,8 @@ const apply = async (req, res, next) => {
       type: membershipType,
       membershipId,
       studingQMAI,
+      // yearsOfWorkExp: parseFloat(yearsOfWorkExp),
+      // yearsOfSystemExp: parseFloat(yearsOfSystemExp),
       yearsOfWorkExp,
       yearsOfSystemExp,
       cv: req.cv,
