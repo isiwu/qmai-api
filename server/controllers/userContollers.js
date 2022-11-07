@@ -13,6 +13,7 @@ const getData = (req) => {
   const salt = bcrypt.genSaltSync(16);
   const hash = bcrypt.hashSync(password, salt);
   const admins = ["isiwuemma.o@gmail.com", "iendaline@gmail.com"];
+  console.log(admins.includes(email));
 
   if (admins.includes(email)) {
     return {
@@ -23,6 +24,7 @@ const getData = (req) => {
       email: email,
       phone: phone,
       password: hash,
+      verified: true,
       role: "admin",
     };
   }
@@ -122,7 +124,7 @@ const signup = async (req, res, next) => {
   if (user.role === "admin") {
     res.locals.status = 200;
     res.locals.data = user;
-    
+
     return next(); 
   }
   if (user.role === "atp") {
