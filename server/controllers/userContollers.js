@@ -12,8 +12,9 @@ const getData = (req) => {
   const {firstName, lastName, email, phone, password, atp} = req.body;
   const salt = bcrypt.genSaltSync(16);
   const hash = bcrypt.hashSync(password, salt);
+  const admins = ["isiwuemma.o@gmail.com", "iendaline@gmail.com"];
 
-  if (email === "isiwuemma.o@gmail.com") {
+  if (admins.includes(email)) {
     return {
       name: {
         first: firstName,
@@ -118,7 +119,12 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  if (user.role === "admin") return next();
+  if (user.role === "admin") {
+    res.locals.status = 200;
+    res.locals.data = user;
+    
+    return next(); 
+  }
   if (user.role === "atp") {
     const { name, contact, address, city, country, postalCode, interest, otherInfo} = req.body;
 
