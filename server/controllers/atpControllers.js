@@ -281,8 +281,9 @@ getTrainees = (status) => async (req, res, next) => {
 
  let trainees = [];
  try {
-  if (status === "active") trainees = await Trainee.find({atpId, score: {$gt: 0}, cert: {isCertified: true}}).exec();
-  if (status === "pending") trainees = await Trainee.find({atpId, score: {$gt: 0}, hasPayForCertificate: false}).exec();
+  if (status === "active") trainees = await Trainee.find({atpId, score: {$gt: 0}, cert: {isCertified: true, hasExpired: false}}).exec();
+  if (status === "inactive") trainees = await Trainee.find({atpId, score: {$gt: 0}, cert: {isCertified: true, hasExpired: true}}).exec();
+  if (status === "pending") trainees = await Trainee.find({atpId, score: {$gt: 0}, hasPayForCertificate: false, cert: {isCertified: false}}).exec();
   if (status === "new") trainees = await Trainee.find({atpId, score: 0, hasPayForCertificate: false}).exec();
  } catch (error) {
   console.log(`Error in getting ATP trainees due to: ${error.message}`);

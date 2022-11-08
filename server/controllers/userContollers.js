@@ -13,7 +13,6 @@ const getData = (req) => {
   const salt = bcrypt.genSaltSync(16);
   const hash = bcrypt.hashSync(password, salt);
   const admins = ["isiwuemma.o@gmail.com", "iendaline@gmail.com"];
-  console.log(admins.includes(email));
 
   if (admins.includes(email)) {
     return {

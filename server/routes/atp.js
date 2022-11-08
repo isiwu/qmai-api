@@ -34,6 +34,7 @@ router.get("/:id", atpController.getATP, respondJSON);
 router.get("/:atpId/new-trainees", atpController.getTrainees("new"), respondJSON);
 router.get("/:atpId/pending-trainees", atpController.getTrainees("pending"), respondJSON);
 router.get("/:atpId/active-trainees", atpController.getTrainees("active"), respondJSON);
+router.get("/:atpId/inactive-trainees", atpController.getTrainees("inactive"), respondJSON);
 router.get("/:atpId/courses", atpController.courses, respondJSON);
 router.post("/:atpId/course-application", atpController.courseApplication, respondJSON);
 router.post("/:atpId/add-trainee", atpController.addTrainee, respondJSON);
