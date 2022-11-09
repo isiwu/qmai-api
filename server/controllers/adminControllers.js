@@ -548,48 +548,39 @@ getATPs = async (req, res, next) => {
   res.locals.data = atps;
   next();
 },
-getActiveATPTrainees = async (req, res, next) => {
+getATPTraineesByStatus = (status) => async (req, res, next) => {
   const { atpId } = req.params;
-  let activeATPTrainees = [];
-  try {
-    activeATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: false}}).exec();
-  } catch (error) {
-    console.log(`Error in getting active APT trainees due to: ${error.message}`);
-    return next(error);
+  let ATPTrainees = [];
+
+  if (status === "active") {
+    try {
+      ATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: false}}).exec();
+    } catch (error) {
+      console.log(`Error in getting active APT trainees due to: ${error.message}`);
+      return next(error);
+    }
+  }
+
+  if (status === "inactive") {
+    try {
+      ATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: true}}).exec();
+    } catch (error) {
+      console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
+      return next(error);
+    }
+  }
+
+  if (status === "pending") {
+    try {
+      ATPTrainees = Trainee.find({atpId, hasPayForCertificate: true, cert: {isCertified: false, hasExpired: false}}).exec();
+    } catch (error) {
+      console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
+      return next(error);
+    }
   }
 
   res.locals.status = 200;
-  res.locals.data = activeATPTrainees;
-
-  next();
-},
-getInActiveATPTrainees = async (req, res, next) => {
-  const { atpId } = req.params;
-  let inActiveATPTrainees = [];
-  try {
-    inActiveATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: true}}).exec();
-  } catch (error) {
-    console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
-    return next(error);
-  }
-
-  res.locals.status = 200;
-  res.locals.data = inActiveATPTrainees;
-
-  next();
-},
-getPendingATPTrainees = async (req, res, next) => {
-  const { atpId } = req.params;
-  let pendingATPTrainees = [];
-  try {
-    pendingATPTrainees = Trainee.find({atpId, hasPayForCertificate: true, cert: {isCertified: false, hasExpired: false}}).exec();
-  } catch (error) {
-    console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
-    return next(error);
-  }
-
-  res.locals.status = 200;
-  res.locals.data = pendingATPTrainees;
+  res.locals.data = ATPTrainees;
 
   next();
 };
@@ -607,7 +598,5 @@ export {
   editCertificate,
   verifyCertificate,
   getATPs,
-  getActiveATPTrainees,
-  getInActiveATPTrainees,
-  getPendingATPTrainees,
+  getATPTraineesByStatus,
 };
