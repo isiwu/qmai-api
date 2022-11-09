@@ -7,6 +7,7 @@ import Profile from "../models/profile";
 import { mailTransporter } from "./userContollers";
 import Transaction from "../models/transaction";
 import Certificate from "../models/certificate";
+import Trainee from "../models/trainee";
 
 const dashboardStat = async (req, res, next) => {
   let membershipStat, atpStat, courseStat, atpInstructorStat;
@@ -532,6 +533,65 @@ verifyCertificate = async (req, res, next) => {
   res.locals.data = cert?.content;
 
   next();
+},
+getATPs = async (req, res, next) => {
+  let atps = [];
+
+  try {
+    atps = await ATP.find({}, "-applicationType").exec();
+  } catch (error) {
+    console.log(`Error in getting atps from ATP model due to: ${error.message}`);
+    return next(error);
+  }
+
+  res.locals.status = 200;
+  res.locals.data = atps;
+  next();
+},
+getActiveATPTrainees = async (req, res, next) => {
+  const { atpId } = req.params;
+  let activeATPTrainees = [];
+  try {
+    activeATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: false}}).exec();
+  } catch (error) {
+    console.log(`Error in getting active APT trainees due to: ${error.message}`);
+    return next(error);
+  }
+
+  res.locals.status = 200;
+  res.locals.data = activeATPTrainees;
+
+  next();
+},
+getInActiveATPTrainees = async (req, res, next) => {
+  const { atpId } = req.params;
+  let inActiveATPTrainees = [];
+  try {
+    inActiveATPTrainees = Trainee.find({atpId, cert: {isCertified: true, hasExpired: true}}).exec();
+  } catch (error) {
+    console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
+    return next(error);
+  }
+
+  res.locals.status = 200;
+  res.locals.data = inActiveATPTrainees;
+
+  next();
+},
+getPendingATPTrainees = async (req, res, next) => {
+  const { atpId } = req.params;
+  let pendingATPTrainees = [];
+  try {
+    pendingATPTrainees = Trainee.find({atpId, hasPayForCertificate: true, cert: {isCertified: false, hasExpired: false}}).exec();
+  } catch (error) {
+    console.log(`Error in getting inactive APT trainees due to: ${error.message}`);
+    return next(error);
+  }
+
+  res.locals.status = 200;
+  res.locals.data = pendingATPTrainees;
+
+  next();
 };
 
 export {
@@ -546,4 +606,8 @@ export {
   addCertificate,
   editCertificate,
   verifyCertificate,
+  getATPs,
+  getActiveATPTrainees,
+  getInActiveATPTrainees,
+  getPendingATPTrainees,
 };
