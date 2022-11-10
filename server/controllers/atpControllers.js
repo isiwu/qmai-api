@@ -220,14 +220,11 @@ updateProfile = async (req, res, next) => {
 },
 courseApplication = async (req, res, next) => {
   const {atpId} = req.params;
-  console.log("gfhfhhfhhfhhfhhfhfhhfhhfhhfhhfhf");
-
-  console.log("atpId => ", atpId);
   
   try {
     await Course.create({
       name: req.body.name,
-      ATPId: atpId,
+      atpId: atpId,
       fee: req.body.fee,
       info: req.body.info
     });
