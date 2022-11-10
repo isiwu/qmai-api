@@ -544,8 +544,13 @@ getATPs = async (req, res, next) => {
     return next(error);
   }
 
+  const ids = atps.map(atp => atp.id);
+  const ATPUserData = await User.find({_id: {$in: ids}}, "-password").exec();
+
+  const atpData = atps.map((atp, index) => ({...atp.toObject(), ...ATPUserData[index].toObject() }));
   res.locals.status = 200;
-  res.locals.data = atps;
+  res.locals.data = atpData;
+  
   next();
 },
 getATPTraineesByStatus = (status) => async (req, res, next) => {
