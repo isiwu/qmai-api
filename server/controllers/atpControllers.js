@@ -292,6 +292,8 @@ getTrainees = (status) => async (req, res, next) => {
 
  res.locals.status = 200;
  res.locals.data = trainees;
+ console.log("atpId => ", atpId);
+ console.log("trainees => ", trainees);
  next();
 },
 addTraineeScore = async (req, res, next) => {
