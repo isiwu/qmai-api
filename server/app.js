@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, "../public")));
     await connectDB();
     console.log("\n> Database connection successful!\n");
 
+    //Schedule Membership Certification
     cron.schedule("* * * * *", () => {
       Profile.find({certificateMembershipPayment: true, isCertified: false}, (error, profiles) => {
         if (error) {
@@ -81,7 +82,7 @@ app.use(express.static(path.join(__dirname, "../public")));
                         <br><br>
                         <div>You can download it here by clicking the link below.</div>
                         <br><br>
-                        <div style="margin-top: 10px;"><a style="font-size: 20px; text-decoration: none; padding: 10px 20px; background-color: green; border-radius: 20px; color: white;" href="https://qmai.herokuapp.com/certs/InMotion-Weekly-Project-Progress-Report.docx" download>Download</a></div>
+                        <div style="margin-top: 10px;"><a style="font-size: 20px; text-decoration: none; padding: 10px 20px; background-color: green; border-radius: 20px; color: white;" href="https://qmai.herokuapp.com/certs/cert.svg" download>Download</a></div>
                     </div>
                   </div>
                 </div> 

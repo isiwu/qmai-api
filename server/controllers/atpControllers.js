@@ -220,8 +220,6 @@ updateProfile = async (req, res, next) => {
 },
 courseApplication = async (req, res, next) => {
   const {atpId} = req.params;
-  console.log("atp Id => ", atpId);
-  console.log("atp Id type => ", typeof atpId);
   
   try {
     await Course.create({
