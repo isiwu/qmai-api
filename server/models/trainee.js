@@ -28,6 +28,13 @@ const traineeSchema = new Schema({
     type: Boolean,
     default: false
   },
+  certPaymentAt: {
+    type: Date,
+    required: function() {
+      if (this.hasPayForCertificate) return true;
+      else return false;
+    }
+  },
   cert: {
     no: Number,
     path: String,

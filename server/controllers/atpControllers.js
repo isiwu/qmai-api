@@ -320,7 +320,7 @@ traineeCertificatePayment = async (req, res, next) => {
   const paymentCommands = [];
   trainees.forEach(trainee => {
     traineeCommands.push(Trainee.findOneAndUpdate({_id: trainee._id, atpId}, {
-      $set: {hasPayForCertificate: true}
+      $set: {hasPayForCertificate: true, certPaymentAt: Date.now()}
     }).exec());
 
     paymentCommands.push(Transaction.create({transactBy: atpId, tarnsactionType: "ATP trainee certificate", amount: trainee.amount, transactionDate: trainee.date}));
