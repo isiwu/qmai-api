@@ -17,16 +17,16 @@ const scheduleTraineeCertification = () => {
       return;
     }
 
-    const dueTrainees = trainees.filter(profile => {
-      const dueDate = new Date(profile.certificateMembershipPaymentAt).setMinutes(new Date(profile.certificateMembershipPaymentAt).getMinutes() + 3);
+    const dueTrainees = trainees.filter(trainee => {
+      const dueDate = new Date(trainee.certPaymentAt).setMinutes(new Date(trainee.certPaymentAt).getMinutes() + 3);
       const currDate = new Date();
 
       if (currDate >= dueDate) return true;
       else return false;
     });
 
-    dueTrainees.forEach(dueMember => {
-      const subject = `QSMAI ${dueMember?.course?.charAt(0).toUpperCase()}${dueMember?.course?.slice(1)} Membership Certificate`,
+    dueTrainees.forEach(dueTrainee => {
+      const subject = `QSMAI ${dueTrainee?.course?.charAt(0).toUpperCase()}${dueTrainee?.course?.slice(1)} Membership Certificate`,
         mailMessage = `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -41,7 +41,7 @@ const scheduleTraineeCertification = () => {
               <div style="background-color:#f1f1f1; width: 55%; height: 400px; border-radius: 20px;margin: auto; ">
                 <div style="padding: 0 3rem;" >
                     <h1 style="color:green  ; padding-top: 2rem;">Hi,</h1>
-                    <div style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We are delighted to inform you that your <b style="font-weight: bolder">${dueMember?.course?.charAt(0).toUpperCase()}${dueMember?.course?.slice(1)} certificate</b> is ready.</div>
+                    <div style="font-size:20px ; padding-top:2rem; line-height: 2rem;font-weight:1px;">We are delighted to inform you that your <b style="font-weight: bolder">${dueTrainee?.course?.charAt(0).toUpperCase()}${dueTrainee?.course?.slice(1)} certificate</b> is ready.</div>
                     <br><br>
                     <div>You can download it here by clicking the link below.</div>
                     <br><br>
@@ -55,7 +55,7 @@ const scheduleTraineeCertification = () => {
         //let mailSuccessfull = true;
         const mail = {
           from: "support@achlps.com",
-          to: dueMember.email,
+          to: dueTrainee.email,
           subject,
           html: mailMessage,
         };
@@ -65,9 +65,8 @@ const scheduleTraineeCertification = () => {
           transporter.sendMail(mail);
 
           console.log("mail sent");
-          dueMember.isCertified = true;
-          dueMember.membershipStatus = "Active";
-          dueMember.save();
+          dueTrainee.cert.isCertified = true;
+          dueTrainee.save();
         } catch (error) {
           console.log(`Error in sending mail certification to  due trainee due to: ${error.message}`);
         }
