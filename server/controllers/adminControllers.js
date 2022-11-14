@@ -1,6 +1,6 @@
 import ATP from "../models/atp";
 import ATPInstructor from "../models/atp-instructor";
-import Course from "../models/course";
+import Course from "../models/trainee-course";
 import Member from "../models/member";
 import User from "../models/user";
 import Profile from "../models/profile";
@@ -8,6 +8,7 @@ import { mailTransporter } from "./userContollers";
 import Transaction from "../models/transaction";
 import Certificate from "../models/certificate";
 import Trainee from "../models/trainee";
+import AdminCourse from "../models/admin-course";
 
 const dashboardStat = async (req, res, next) => {
   let membershipStat, atpStat, courseStat, atpInstructorStat;
@@ -588,6 +589,25 @@ getATPTraineesByStatus = (status) => async (req, res, next) => {
   res.locals.data = ATPTrainees;
 
   next();
+},
+addCourse = async (req, res, next) => {
+  const {name, info, amount} = req.body;
+
+  try {
+    AdminCourse.create({
+      name,
+      courseInfo: info,
+      courseCode: "1234",
+      amount,
+    });
+  } catch (error) {
+    console.log(`Error in creating course under admin due to: ${error.message}`);
+    return next(error);
+  }
+
+  res.locals.status = 200;
+  res.locals.data = "";
+  next();
 };
 
 export {
@@ -604,4 +624,5 @@ export {
   verifyCertificate,
   getATPs,
   getATPTraineesByStatus,
+  addCourse,
 };
