@@ -6,7 +6,8 @@ import { mailTransporter } from "./controllers/userContollers";
 import Trainee from "./models/trainee";
 
 const scheduleTraineeCertification = () => {
-  Trainee.find({hasPayForCertificate: true, cert: { isCertified: false}}, (error, trainees) => {
+  Trainee.find({hasPayForCertificate: true, "cert.isCertified": false}, (error, trainees) => {
+    console.log("trainees to be certified", trainees);
     if (error) {
       console.log(`Error in fetching the uncertified trainees due to: ${error.message}`);
       return;
